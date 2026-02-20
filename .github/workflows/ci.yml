@@ -37,4 +37,4 @@ jobs:
     # Verify core dependencies are properly installed
     - name: Verify installation
       run: |
-        python -c "import crewai; import langchain; import pydantic; print('All core dependencies installed successfully')" 
+        python -c "import crewai; import langchain; import langchain_anthropic; import anthropic; import pydantic; print('All core dependencies installed successfully')" 
