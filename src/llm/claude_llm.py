@@ -1,0 +1,164 @@
+"""Claude (Anthropic) LLM implementation."""
+
+import os
+from typing import Any
+
+import requests
+from langchain.callbacks.manager import CallbackManagerForLLMRun
+from langchain.schema import BaseMessage
+from langchain_anthropic import ChatAnthropic
+from pydantic import SecretStr
+
+from src.llm.base import BaseLLM
+from src.llm.circuit_breaker import HTTP_OK
+
+
+def check_claude_availability() -> bool:
+    """Check if Anthropic Claude API is available.
+
+    Returns:
+        True if Claude is available, False otherwise
+    """
+    api_key = os.getenv("ANTHROPIC_API_KEY", "")
+    if not api_key:
+        return False
+
+    try:
+        response = requests.get(
+            "https://api.anthropic.com/v1/models",
+            headers={
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+            },
+            timeout=2,
+        )
+        return response.status_code == HTTP_OK
+    except (requests.RequestException, TimeoutError):
+        return False
+
+
+class ClaudeLLM(BaseLLM):
+    """Claude (Anthropic) LLM implementation.
+
+    This class implements the BaseLLM interface for Anthropic's Claude models.
+    It wraps the LangChain ChatAnthropic class to provide a consistent interface.
+    """
+
+    def __init__(
+        self,
+        model_name: str = "claude-sonnet-4-20250514",
+        temperature: float = 0.7,
+        api_key: str | None = None,
+        **kwargs: Any,
+    ) -> None:
+        """Initialize the Claude LLM.
+
+        Args:
+            model_name: The name of the model to use
+            temperature: The temperature to use for generation
+            api_key: The Anthropic API key. If not provided, will be read from environment
+            **kwargs: Additional arguments to pass to the ChatAnthropic constructor
+        """
+        super().__init__(model_name=model_name, temperature=temperature)
+        self._model_name = model_name
+        self._temperature = temperature
+        self._api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
+
+        if not self._api_key:
+            raise ValueError("Anthropic API key not provided and ANTHROPIC_API_KEY environment variable not set")
+
+        self._llm = ChatAnthropic(
+            model=model_name,
+            temperature=temperature,
+            api_key=SecretStr(self._api_key),
+            **kwargs,
+        )
+
+    def _call(
+        self,
+        prompt: str,
+        stop: list[str] | None = None,
+        run_manager: CallbackManagerForLLMRun | None = None,
+        **kwargs: Any,
+    ) -> str:
+        """Call the LLM with the given prompt.
+
+        Args:
+            prompt: The prompt to send to the LLM
+            stop: Optional list of stop sequences
+            run_manager: Optional callback manager
+            **kwargs: Additional arguments to pass to the LLM
+
+        Returns:
+            The generated text from the LLM
+        """
+        response = self._llm.invoke(prompt)
+        if isinstance(response, str):
+            return response
+        return str(response.content)
+
+    def __call__(self, prompt: str | list[BaseMessage], **kwargs: Any) -> str:
+        """Call the LLM with the given prompt.
+
+        Args:
+            prompt: The prompt to send to the LLM
+            **kwargs: Additional arguments to pass to the LLM
+
+        Returns:
+            The generated text from the LLM
+
+        Raises:
+            ValueError: If the prompt is not a string or list of BaseMessage objects
+        """
+        if isinstance(prompt, str):
+            return self._call(prompt, **kwargs)
+        elif isinstance(prompt, list) and all(isinstance(msg, BaseMessage) for msg in prompt):
+            text = "\n".join(str(msg.content) for msg in prompt)
+            return self._call(text, **kwargs)
+        else:
+            raise ValueError("Prompt must be a string or a list of BaseMessage objects")
+
+    def _llm_type(self) -> str:
+        """Return type of LLM.
+
+        Returns:
+            A string representing the type of LLM
+        """
+        return "claude"
+
+    @property
+    def temperature(self) -> float:
+        """Get the temperature setting for the LLM.
+
+        Returns:
+            The temperature value
+        """
+        return self._temperature
+
+    @temperature.setter
+    def temperature(self, value: float) -> None:
+        """Set the temperature for the LLM.
+
+        Args:
+            value: The temperature value to set
+        """
+        self._temperature = value
+        self._llm.temperature = value
+
+    @property
+    def model_name(self) -> str:
+        """Get the model name for the LLM.
+
+        Returns:
+            The model name
+        """
+        return self._model_name
+
+    @property
+    def provider(self) -> str:
+        """Get the provider name for the LLM.
+
+        Returns:
+            The provider name (Anthropic)
+        """
+        return "anthropic"
