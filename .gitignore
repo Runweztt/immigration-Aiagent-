@@ -201,3 +201,14 @@ ansible/vault/
 ansible/*.vault
 ansible/*.vault.yml
 ansible/*.vault.yaml
+
+# LoopedAI Backend (separate repo: backend_loopedAi_agent)
+backend/
+deploy.sh
+deploy_output.txt
+run_output.txt
+vps_check.sh
+vps_diagnostic.txt
+test_env.py
+loopedai-bot/
+*.db
