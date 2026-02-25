@@ -15,9 +15,10 @@ class LawyerMatchTask(Task):
     the user with qualified attorneys for their case type.
     """
 
-    def __init__(self):
+    def __init__(self, agent):
         """Initializes the LawyerMatchTask."""
         super().__init__(
+            agent=agent,
             description=(
                 "Based on the user's immigration case details, find and recommend lawyers:\n"
                 "1. Identify the speciality needed (asylum, employment, family, deportation defense, etc.)\n"

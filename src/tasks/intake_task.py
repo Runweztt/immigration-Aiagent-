@@ -15,11 +15,14 @@ class IntakeTask(Task):
     key personal details relevant to their immigration case.
     """
 
-    def __init__(self):
+    def __init__(self, agent):
         """Initializes the IntakeTask."""
         super().__init__(
+            agent=agent,
             description=(
-                "Analyze the user's immigration query and extract the following information:\n"
+                "Analyze the following immigration query and extract the information listed below:\n\n"
+                "USER QUERY:\n{query}\n\n"
+                "Extract:\n"
                 "1. Nationality / country of origin\n"
                 "2. Current visa type (if any)\n"
                 "3. Current immigration status (e.g., valid, expired, pending)\n"

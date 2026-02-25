@@ -15,9 +15,10 @@ class ResearchImmigrationTask(Task):
     immigration information relevant to the user's specific situation.
     """
 
-    def __init__(self):
+    def __init__(self, agent):
         """Initializes the ResearchImmigrationTask."""
         super().__init__(
+            agent=agent,
             description=(
                 "Based on the user's extracted immigration context, research the following:\n"
                 "1. Current eligibility requirements for the desired visa or status\n"
