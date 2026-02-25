@@ -1,1 +1,1 @@
-"""Tools package for healthcare system."""
+"""Tools package for immigration AI agent system."""

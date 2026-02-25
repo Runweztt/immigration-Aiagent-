@@ -1,29 +1,29 @@
-"""Database interface for healthcare systems."""
+"""Database interface for immigration case management."""
 
 from abc import ABC, abstractmethod
 
 
-class HealthcareDatabase(ABC):
-    """Abstract base class for healthcare database operations."""
+class ImmigrationDatabase(ABC):
+    """Abstract base class for immigration database operations."""
 
     @abstractmethod
-    async def read_patient_data(self, patient_id: str) -> dict[str, object]:
-        """Read patient data from the database.
+    async def read_case_data(self, case_id: str) -> dict[str, object]:
+        """Read immigration case data from the database.
 
         Args:
-            patient_id: The ID of the patient
+            case_id: The ID of the immigration case
 
         Returns:
-            Dictionary containing patient data
+            Dictionary containing case data
         """
         pass
 
     @abstractmethod
-    async def update_patient_data(self, patient_id: str, update_data: dict[str, object]) -> bool:
-        """Update patient data in the database.
+    async def update_case_data(self, case_id: str, update_data: dict[str, object]) -> bool:
+        """Update immigration case data in the database.
 
         Args:
-            patient_id: The ID of the patient
+            case_id: The ID of the immigration case
             update_data: Dictionary containing data to update
 
         Returns:
@@ -35,15 +35,15 @@ class HealthcareDatabase(ABC):
     async def log_audit_event(
         self,
         event_type: str,
-        patient_id: str,
+        case_id: str,
         user_id: str,
         details: dict[str, object] | None = None,
     ) -> bool:
-        """Log an audit event for healthcare operations.
+        """Log an audit event for immigration operations.
 
         Args:
             event_type: Type of event being logged
-            patient_id: ID of the patient involved
+            case_id: ID of the immigration case involved
             user_id: ID of the user performing the action
             details: Optional additional details about the event
 

@@ -1,8 +1,8 @@
-repos:
+repos:v
 -   repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.3.0
     hooks:
     -   id: ruff
         args: [--line-length=132]
     -   id: ruff-format
-        args: [--line-length=132] 
+        args: [--line-length=132]
