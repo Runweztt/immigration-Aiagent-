@@ -15,9 +15,10 @@ class ComplianceCheckTask(Task):
     and verify their accuracy and currency against authoritative sources.
     """
 
-    def __init__(self):
+    def __init__(self, agent):
         """Initializes the ComplianceCheckTask."""
         super().__init__(
+            agent=agent,
             description=(
                 "Review all information provided by the previous agents and verify:\n"
                 "1. Are the visa requirements accurate and current?\n"

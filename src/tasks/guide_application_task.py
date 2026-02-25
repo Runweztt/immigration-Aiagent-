@@ -15,9 +15,10 @@ class GuideApplicationTask(Task):
     of steps the user needs to follow for their immigration application.
     """
 
-    def __init__(self):
+    def __init__(self, agent):
         """Initializes the GuideApplicationTask."""
         super().__init__(
+            agent=agent,
             description=(
                 "Using the research findings and the user's context, create a detailed "
                 "step-by-step application guide that includes:\n"

@@ -15,9 +15,10 @@ class SimplifyLanguageTask(Task):
     them so that a non-expert can easily understand them.
     """
 
-    def __init__(self):
+    def __init__(self, agent):
         """Initializes the SimplifyLanguageTask."""
         super().__init__(
+            agent=agent,
             description=(
                 "Review the intake summary and any immigration terminology mentioned. "
                 "Identify all complex legal terms, acronyms, and jargon. Rewrite each one "

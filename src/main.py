@@ -5,10 +5,12 @@ It defines the main workflow for processing an immigration query, from initializ
 the language model and agents to executing the tasks and returning the final results.
 """
 
-from crewai import Crew, Process
+import os
+
+from crewai import Crew, LLM, Process
+from dotenv import load_dotenv
 
 from src.agents import create_immigration_crew
-from src.llm.llm_factory import LLMFactory, LLMType
 from src.tasks import (
     ComplianceCheckTask,
     GuideApplicationTask,
@@ -23,8 +25,8 @@ def process_immigration_query(query: str) -> dict:
     """Processes an immigration query using the immigration agent crew.
 
     This function orchestrates the entire workflow. It initializes the language model
-    using the LLMFactory, creates the specialized agents, defines the sequence of tasks,
-    and runs the crew to get the processed results.
+    using CrewAI's native LLM format, creates the specialized agents, defines the
+    sequence of tasks, and runs the crew to get the processed results.
 
     Args:
         query: A string containing the user's immigration question or scenario.
@@ -32,34 +34,58 @@ def process_immigration_query(query: str) -> dict:
     Returns:
         A dictionary containing the structured results from each task in the workflow.
     """
-    # Initialize the appropriate LLM using the factory
-    llm = LLMFactory.create_llm(LLMType.CLOUD_FAST)
+    load_dotenv()
+
+    # Use CrewAI's native LLM format for proper Anthropic integration
+    model_name = os.getenv("ANTHROPIC_MODEL_NAME", "claude-sonnet-4-20250514")
+    llm = LLM(
+        model=f"anthropic/{model_name}",
+        api_key=os.getenv("ANTHROPIC_API_KEY"),
+        max_tokens=4096,
+    )
 
     # Create agents
-    agents = create_immigration_crew(llm)
+    agents_list = create_immigration_crew(llm)
+    (
+        intake_agent,
+        plain_language_agent,
+        research_agent,
+        guide_agent,
+        compliance_agent,
+        lawyer_agent,
+    ) = agents_list
 
-    # Create tasks
+    # Create tasks — each description includes {query} placeholder for the user's input
     tasks = [
-        IntakeTask(),
-        SimplifyLanguageTask(),
-        ResearchImmigrationTask(),
-        GuideApplicationTask(),
-        ComplianceCheckTask(),
-        LawyerMatchTask(),
+        IntakeTask(intake_agent),
+        SimplifyLanguageTask(plain_language_agent),
+        ResearchImmigrationTask(research_agent),
+        GuideApplicationTask(guide_agent),
+        ComplianceCheckTask(compliance_agent),
+        LawyerMatchTask(lawyer_agent),
     ]
 
-    # Create and run the crew
-    crew = Crew(agents=agents, tasks=tasks, process=Process.sequential, verbose=True)
-    result = crew.kickoff()
+    # Create and run the crew, passing the user query as input
+    crew = Crew(agents=agents_list, tasks=tasks, process=Process.sequential, verbose=True)
+    result = crew.kickoff(inputs={"query": query})
 
-    return {
-        "intake_summary": result[0],
-        "plain_language": result[1],
-        "research_findings": result[2],
-        "application_guide": result[3],
-        "compliance_check": result[4],
-        "lawyer_recommendations": result[5],
-    }
+    # Build structured output from task results
+    task_names = [
+        "intake_summary",
+        "plain_language",
+        "research_findings",
+        "application_guide",
+        "compliance_check",
+        "lawyer_recommendations",
+    ]
+    output = {}
+    for i, name in enumerate(task_names):
+        if i < len(result.tasks_output):
+            output[name] = result.tasks_output[i].raw
+        else:
+            output[name] = "No output"
+
+    return output
 
 
 def main():
@@ -76,7 +102,16 @@ def main():
     """
 
     result = process_immigration_query(query)
-    print("Processing complete:", result)
+
+    print("\n" + "=" * 80)
+    print("IMMIGRATION AI AGENT — RESULTS")
+    print("=" * 80)
+    for section, content in result.items():
+        print(f"\n{'─' * 40}")
+        print(f"📋 {section.replace('_', ' ').upper()}")
+        print(f"{'─' * 40}")
+        print(content[:500] if len(content) > 500 else content)
+    print("\n" + "=" * 80)
 
 
 if __name__ == "__main__":
