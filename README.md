@@ -107,7 +107,7 @@ immigration-ai-agent/
 
 ```bash
 git clone https://github.com/your-username/healthcare-aigent.git
-cd healthcare-aigent
+cd Immigration-aigent
 ```
 
 ### 2. Set Up the Environment
