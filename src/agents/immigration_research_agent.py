@@ -1,26 +1,22 @@
 """Defines the ImmigrationResearchAgent for the Immigration AI Agent system.
 
-This module creates an agent that specializes in researching current
-immigration rules, policy changes, processing times, and news updates
-relevant to the user's specific situation.
+This module creates an agent that researches current immigration rules,
+eligibility requirements, application steps, and processing times
+relevant to the user's specific situation and destination country.
 """
 
 from crewai import Agent
 
-from src.tools.immigration_tools import ImmigrationLookupTool
+from src.tools.immigration_tools import FormGuideTool, ImmigrationLookupTool
 from src.tools.web_tools import WebSearchTool
 
 
 class ImmigrationResearchAgent(Agent):
-    """An agent that researches current immigration laws, news, and policy updates.
+    """An agent that researches immigration rules and provides application guidance.
 
     This agent uses search tools and immigration databases to find the
-    most current and relevant information about visa rules, processing
-    times, policy changes, and immigration news that applies to the
-    user's case.
-
-    Attributes:
-        agent (Agent): The crewAI agent configured for this role.
+    most current information about visa requirements, application steps,
+    forms, fees, and processing times for the user's destination country.
     """
 
     def __init__(self, llm: any):
@@ -31,16 +27,21 @@ class ImmigrationResearchAgent(Agent):
         """
         super().__init__(
             role="Immigration Research Analyst",
-            goal="Find the latest immigration rules, policy updates, processing times, and relevant news for any country worldwide",
+            goal=(
+                "Research immigration requirements, application steps, forms, fees, "
+                "and processing times for the user's destination country"
+            ),
             backstory=(
-                "You are a meticulous immigration research analyst who monitors "
+                "You are a meticulous immigration research analyst with knowledge of "
                 "immigration authorities worldwide — IRCC (Canada), USCIS (USA), "
-                "UK Home Office, Schengen zone authorities, Australian DIBP, and others. "
-                "You find the most authoritative and current information for the "
-                "user's specific destination country. You are concise and cite sources."
+                "UK Home Office, Schengen authorities, and others. You find the most "
+                "authoritative information for the user's destination country, including "
+                "eligibility requirements, required forms, fees, and step-by-step "
+                "application procedures. You are concise, cite sources, and focus on "
+                "what the user actually needs."
             ),
             llm=llm,
-            tools=[ImmigrationLookupTool(), WebSearchTool()],
+            tools=[ImmigrationLookupTool(), FormGuideTool(), WebSearchTool()],
             allow_delegation=False,
             verbose=True,
         )
