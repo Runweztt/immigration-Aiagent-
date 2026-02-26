@@ -21,7 +21,7 @@ from src.tasks import (
 )
 
 
-def process_immigration_query(query: str) -> dict:
+def process_immigration_query(query: str, user_context: dict | None = None) -> dict:
     """Processes an immigration query using the immigration agent crew.
 
     This function orchestrates the entire workflow. It initializes the language model
@@ -30,6 +30,7 @@ def process_immigration_query(query: str) -> dict:
 
     Args:
         query: A string containing the user's immigration question or scenario.
+        user_context: Optional dict with user details (name, country, location).
 
     Returns:
         A dictionary containing the structured results from each task in the workflow.
@@ -41,7 +42,7 @@ def process_immigration_query(query: str) -> dict:
     llm = LLM(
         model=f"anthropic/{model_name}",
         api_key=os.getenv("ANTHROPIC_API_KEY"),
-        max_tokens=4096,
+        max_tokens=1024,
     )
 
     # Create agents
@@ -65,9 +66,18 @@ def process_immigration_query(query: str) -> dict:
         LawyerMatchTask(lawyer_agent),
     ]
 
-    # Create and run the crew, passing the user query as input
+    # Build inputs with user context
+    ctx = user_context or {}
+    inputs = {
+        "query": query,
+        "user_name": ctx.get("name", "Not provided"),
+        "user_country": ctx.get("country", "Not provided"),
+        "user_location": ctx.get("location", "Not provided"),
+    }
+
+    # Create and run the crew, passing the user query and context as input
     crew = Crew(agents=agents_list, tasks=tasks, process=Process.sequential, verbose=True)
-    result = crew.kickoff(inputs={"query": query})
+    result = crew.kickoff(inputs=inputs)
 
     # Build structured output from task results
     task_names = [

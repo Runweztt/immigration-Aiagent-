@@ -30,12 +30,15 @@ class IntakeAgent(Agent):
         """
         super().__init__(
             role="Immigration Intake Specialist",
-            goal="Extract nationality, current visa status, and desired immigration outcome from user queries",
+            goal="Extract nationality, current location, destination country, visa status, and desired immigration outcome from user queries",
             backstory=(
-                "You are an experienced immigration intake officer. You carefully read "
-                "each query to identify the person's country of origin, current immigration "
-                "status, visa type if any, and what outcome they are hoping for. You are "
-                "thorough and never make assumptions about missing information."
+                "You are an experienced immigration intake officer who handles cases "
+                "from every country worldwide. You carefully read each query to identify "
+                "the person's name, country of origin, where they currently live, their "
+                "destination country, current immigration status, visa type if any, and "
+                "what outcome they are hoping for. You NEVER assume missing information "
+                "— if something is not stated, you flag it as 'Not provided'. "
+                "You are concise and only output what is necessary."
             ),
             llm=llm,
             tools=[ImmigrationLookupTool(), WebSearchTool()],

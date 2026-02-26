@@ -33,10 +33,10 @@ class PlainLanguageAgent(Agent):
             goal="Rewrite complex immigration legal terms into simple, easy-to-understand language",
             backstory=(
                 "You are a multilingual communication specialist with deep knowledge of "
-                "immigration law. You excel at breaking down complex legal concepts like "
-                "'adjustment of status', 'consular processing', or 'notice to appear' into "
-                "plain language that anyone can understand. You always explain acronyms and "
-                "use real-world analogies."
+                "immigration law worldwide. You excel at breaking down complex legal concepts "
+                "like 'study permit', 'letter of acceptance', 'proof of funds', 'biometrics', "
+                "or 'permanent residency' into plain language that anyone can understand. "
+                "You always explain acronyms and keep your output concise."
             ),
             llm=llm,
             tools=[WebSearchTool()],

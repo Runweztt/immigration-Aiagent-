@@ -20,16 +20,15 @@ class LawyerMatchTask(Task):
         super().__init__(
             agent=agent,
             description=(
-                "Based on the user's immigration case details, find and recommend lawyers:\n"
-                "1. Identify the speciality needed (asylum, employment, family, deportation defense, etc.)\n"
-                "2. Consider the user's geographic location\n"
+                "Based on the user's immigration case details, find and recommend professionals:\n"
+                "1. Identify the speciality needed (study permits, work permits, asylum, family, etc.)\n"
+                "2. Consider the user's destination country and current location\n"
                 "3. Factor in language preferences if mentioned\n"
-                "4. Provide at least 2-3 lawyer recommendations\n"
-                "5. Include each lawyer's name, firm, speciality, rating, and consultation fee\n"
-                "6. Add a brief note on why each lawyer is a good match for this specific case"
+                "4. Provide 2-3 recommendations with name, speciality, and contact method\n\n"
+                "Keep it brief. Under 150 words."
             ),
             expected_output=(
-                "A list of 2-3 recommended immigration lawyers with their details, "
-                "speciality match, and a personalized reason for the recommendation."
+                "A list of 2-3 recommended immigration professionals with their details "
+                "and a brief reason for the recommendation. Under 150 words."
             ),
         )

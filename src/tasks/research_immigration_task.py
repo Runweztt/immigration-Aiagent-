@@ -21,15 +21,14 @@ class ResearchImmigrationTask(Task):
             agent=agent,
             description=(
                 "Based on the user's extracted immigration context, research the following:\n"
-                "1. Current eligibility requirements for the desired visa or status\n"
-                "2. Latest processing times from USCIS\n"
-                "3. Any recent policy changes or executive orders that may affect the case\n"
-                "4. Relevant news or updates from the Visa Bulletin\n"
-                "5. Known backlogs or country-specific wait times\n\n"
-                "Always cite the source of information when possible."
+                "1. Current eligibility requirements for the desired visa or status in the destination country\n"
+                "2. Latest processing times from the relevant immigration authority\n"
+                "3. Any recent policy changes that may affect the case\n"
+                "4. Known backlogs or country-specific wait times\n\n"
+                "Cite sources when possible. Keep response under 200 words. Be direct and specific."
             ),
             expected_output=(
-                "A research report containing: eligibility_requirements, processing_times, "
-                "recent_policy_changes, visa_bulletin_updates, and source_citations."
+                "A concise research summary containing: eligibility_requirements, "
+                "processing_times, recent_policy_changes, and source_citations. Under 200 words."
             ),
         )

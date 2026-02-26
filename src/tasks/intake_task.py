@@ -20,18 +20,26 @@ class IntakeTask(Task):
         super().__init__(
             agent=agent,
             description=(
-                "Analyze the following immigration query and extract the information listed below:\n\n"
+                "Analyze the following immigration query and extract the information listed below.\n\n"
+                "USER CONTEXT:\n"
+                "Name: {user_name}\n"
+                "Country of origin: {user_country}\n"
+                "Currently living in: {user_location}\n\n"
                 "USER QUERY:\n{query}\n\n"
                 "Extract:\n"
                 "1. Nationality / country of origin\n"
-                "2. Current visa type (if any)\n"
-                "3. Current immigration status (e.g., valid, expired, pending)\n"
-                "4. Desired outcome (e.g., work permit, green card, asylum)\n"
-                "5. Any relevant personal details (family ties, employer, timeline)\n\n"
-                "If any information is missing, note it as 'Not provided'."
+                "2. Current location (where the user lives now)\n"
+                "3. Destination country\n"
+                "4. Current visa type (if any)\n"
+                "5. Current immigration status (e.g., valid, expired, pending)\n"
+                "6. Desired outcome (e.g., study permit, work permit, permanent residence)\n"
+                "7. Any relevant personal details (family ties, employer, timeline)\n\n"
+                "If any information is missing, note it as 'Not provided'.\n"
+                "Be concise. Use plain text, no markdown headers."
             ),
             expected_output=(
-                "A structured summary containing: nationality, current_visa_type, "
-                "immigration_status, desired_outcome, and additional_details."
+                "A brief structured summary containing: name, nationality, current_location, "
+                "destination_country, current_visa_type, immigration_status, desired_outcome, "
+                "and additional_details. Keep it under 150 words."
             ),
         )

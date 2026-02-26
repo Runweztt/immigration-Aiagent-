@@ -24,12 +24,13 @@ class SimplifyLanguageTask(Task):
                 "Identify all complex legal terms, acronyms, and jargon. Rewrite each one "
                 "in plain, simple language that someone with no legal background can understand.\n\n"
                 "Examples of terms to simplify:\n"
-                "- 'Adjustment of Status' → 'Changing your visa to a green card while in the US'\n"
-                "- 'RFE' → 'Request for Evidence — USCIS asking you for more documents'\n"
-                "- 'NTA' → 'Notice to Appear — a document that starts removal proceedings'"
+                "- 'Study permit' → 'Official permission to study in another country'\n"
+                "- 'Letter of Acceptance (LOA)' → 'A letter from the university confirming they accepted you'\n"
+                "- 'Proof of funds' → 'Bank statements showing you have enough money'\n\n"
+                "Keep it brief — only explain terms the user actually needs."
             ),
             expected_output=(
-                "A glossary-style breakdown of all immigration terms found, "
-                "each with a plain-language explanation."
+                "A short glossary of immigration terms found, "
+                "each with a plain-language explanation. Under 150 words."
             ),
         )

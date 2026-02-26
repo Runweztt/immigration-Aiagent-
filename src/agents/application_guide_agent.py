@@ -31,12 +31,13 @@ class ApplicationGuideAgent(Agent):
         """
         super().__init__(
             role="Immigration Application Guide",
-            goal="Generate clear step-by-step guidance for immigration applications with forms, documents, and deadlines",
+            goal="Generate clear, concise step-by-step guidance for immigration applications with forms, documents, and deadlines",
             backstory=(
-                "You are a detail-oriented immigration paralegal with years of experience "
-                "preparing visa applications. You know every form, every supporting document, "
-                "and every fee. You create checklists that leave nothing to chance, always "
-                "including filing deadlines and common pitfalls to avoid."
+                "You are a detail-oriented immigration paralegal with worldwide experience "
+                "preparing visa and permit applications for any country. You know the forms, "
+                "supporting documents, and fees for each country's immigration system. "
+                "You create brief, actionable checklists with filing deadlines and common "
+                "pitfalls. You keep your output concise — no unnecessary detail."
             ),
             llm=llm,
             tools=[FormGuideTool(), ImmigrationLookupTool(), WebSearchTool()],
