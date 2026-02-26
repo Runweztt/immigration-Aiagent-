@@ -1,18 +1,18 @@
 """Defines the ResearchImmigrationTask for the Immigration AI Agent system.
 
 This module creates a task that instructs the ImmigrationResearchAgent
-to find the latest rules, policy updates, processing times, and news
-relevant to the user's immigration case.
+to find requirements, application steps, forms, fees, and processing
+times for the user's destination country.
 """
 
 from crewai import Task
 
 
 class ResearchImmigrationTask(Task):
-    """A task for researching current immigration rules and news.
+    """A task for researching immigration requirements and application steps.
 
-    This task asks the agent to search for the most up-to-date
-    immigration information relevant to the user's specific situation.
+    This task asks the agent to find eligibility requirements, required
+    documents, application steps, fees, and processing times.
     """
 
     def __init__(self, agent):
@@ -20,15 +20,17 @@ class ResearchImmigrationTask(Task):
         super().__init__(
             agent=agent,
             description=(
-                "Based on the user's extracted immigration context, research the following:\n"
-                "1. Current eligibility requirements for the desired visa or status in the destination country\n"
-                "2. Latest processing times from the relevant immigration authority\n"
-                "3. Any recent policy changes that may affect the case\n"
-                "4. Known backlogs or country-specific wait times\n\n"
-                "Cite sources when possible. Keep response under 200 words. Be direct and specific."
+                "Based on the user's extracted immigration context, research and provide:\n"
+                "1. Eligibility requirements for the desired visa/permit in the destination country\n"
+                "2. Required forms and documents\n"
+                "3. Application steps (where to apply, how to submit)\n"
+                "4. Fees\n"
+                "5. Processing times\n"
+                "6. Common mistakes to avoid\n\n"
+                "Cite sources when possible. Keep response under 250 words. Be direct and specific."
             ),
             expected_output=(
-                "A concise research summary containing: eligibility_requirements, "
-                "processing_times, recent_policy_changes, and source_citations. Under 200 words."
+                "A concise research summary with: eligibility requirements, required documents, "
+                "step-by-step application process, fees, and processing times. Under 250 words."
             ),
         )
