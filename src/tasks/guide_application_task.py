@@ -20,18 +20,18 @@ class GuideApplicationTask(Task):
         super().__init__(
             agent=agent,
             description=(
-                "Using the research findings and the user's context, create a detailed "
+                "Using the research findings and the user's context, create a concise "
                 "step-by-step application guide that includes:\n"
-                "1. Which forms to file (with form numbers and names)\n"
+                "1. Which forms or applications to submit\n"
                 "2. Required supporting documents\n"
                 "3. Filing fees and payment methods\n"
-                "4. Where to file (online, by mail, specific USCIS office)\n"
-                "5. Important deadlines and processing milestones\n"
-                "6. Common mistakes to avoid\n"
-                "7. What to expect after filing (receipt notices, biometrics, interviews)"
+                "4. Where to apply (online portal, embassy, immigration office)\n"
+                "5. Key deadlines\n"
+                "6. Common mistakes to avoid\n\n"
+                "Keep it brief and actionable. Under 200 words."
             ),
             expected_output=(
                 "A numbered step-by-step application guide with forms, documents, "
-                "fees, deadlines, and tips for avoiding common mistakes."
+                "fees, and tips. Under 200 words."
             ),
         )

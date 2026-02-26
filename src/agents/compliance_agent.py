@@ -16,7 +16,7 @@ class ComplianceAgent(Agent):
 
     This agent acts as the quality-control gate. It reviews all outputs
     from the other agents and cross-references them with authoritative
-    government sources (USCIS, DOS, etc.) to flag any inaccuracies,
+    government sources for the relevant country to flag any inaccuracies,
     outdated information, or potentially misleading advice.
 
     Attributes:
@@ -31,12 +31,13 @@ class ComplianceAgent(Agent):
         """
         super().__init__(
             role="Immigration Compliance Verifier",
-            goal="Cross-check all immigration advice against official government sources for accuracy",
+            goal="Cross-check all immigration advice against official government sources for the relevant country",
             backstory=(
-                "You are a compliance officer with a legal background in immigration law. "
-                "Your job is to ensure that no incorrect or outdated information reaches the "
-                "user. You verify every claim against official USCIS, Department of State, "
-                "and DOL sources. If something cannot be verified, you flag it clearly."
+                "You are a compliance officer with a legal background in international "
+                "immigration law. You verify claims against official government sources "
+                "for the relevant country — IRCC (Canada), USCIS (USA), UK Home Office, "
+                "etc. If something cannot be verified, you flag it clearly. "
+                "You are concise and only report issues, not repeat verified information."
             ),
             llm=llm,
             tools=[ImmigrationLookupTool(), WebSearchTool()],

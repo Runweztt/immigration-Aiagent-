@@ -24,13 +24,14 @@ class ComplianceCheckTask(Task):
                 "1. Are the visa requirements accurate and current?\n"
                 "2. Are the processing times up to date?\n"
                 "3. Are the forms and fees correct?\n"
-                "4. Do the steps align with official USCIS/DOS procedures?\n"
+                "4. Do the steps align with official procedures for the relevant country?\n"
                 "5. Are there any disclaimers or caveats that should be added?\n\n"
                 "Flag any information that cannot be verified or may be outdated. "
-                "Add a confidence score (high/medium/low) for each section."
+                "Add a confidence score (high/medium/low) for each section.\n"
+                "Be concise — only report issues and confidence. Under 150 words."
             ),
             expected_output=(
-                "A compliance report with: verification_status for each section, "
-                "confidence_scores, flagged_issues, and recommended_disclaimers."
+                "A brief compliance report with: verification_status, "
+                "confidence_scores, flagged_issues, and recommended_disclaimers. Under 150 words."
             ),
         )

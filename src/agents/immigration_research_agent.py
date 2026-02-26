@@ -31,12 +31,13 @@ class ImmigrationResearchAgent(Agent):
         """
         super().__init__(
             role="Immigration Research Analyst",
-            goal="Find the latest immigration rules, policy updates, processing times, and relevant news",
+            goal="Find the latest immigration rules, policy updates, processing times, and relevant news for any country worldwide",
             backstory=(
-                "You are a meticulous immigration research analyst who monitors USCIS "
-                "bulletins, visa bulletin updates, executive orders, and immigration news "
-                "daily. You know where to find the most authoritative and up-to-date "
-                "information and you always cite your sources."
+                "You are a meticulous immigration research analyst who monitors "
+                "immigration authorities worldwide — IRCC (Canada), USCIS (USA), "
+                "UK Home Office, Schengen zone authorities, Australian DIBP, and others. "
+                "You find the most authoritative and current information for the "
+                "user's specific destination country. You are concise and cite sources."
             ),
             llm=llm,
             tools=[ImmigrationLookupTool(), WebSearchTool()],
