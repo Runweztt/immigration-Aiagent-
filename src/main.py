@@ -18,6 +18,9 @@ from src.tasks import (
 )
 
 
+from src.llm.llm_factory import get_llm
+
+
 def process_immigration_query(query: str, user_context: dict | None = None) -> str:
     """Processes an immigration query using the immigration agent crew.
 
@@ -34,13 +37,8 @@ def process_immigration_query(query: str, user_context: dict | None = None) -> s
     """
     load_dotenv()
 
-    # Use CrewAI's native LLM format for proper Anthropic integration
-    model_name = os.getenv("ANTHROPIC_MODEL_NAME", "claude-sonnet-4-20250514")
-    llm = LLM(
-        model=f"anthropic/{model_name}",
-        api_key=os.getenv("ANTHROPIC_API_KEY"),
-        max_tokens=512,
-    )
+    # Use the centralized LLM factory
+    llm = get_llm(temperature=0.3)
 
     # Create 3 consolidated agents
     agents_list = create_immigration_crew(llm)
