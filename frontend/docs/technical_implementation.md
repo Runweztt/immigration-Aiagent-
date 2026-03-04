@@ -1,6 +1,6 @@
 # Technical Implementation
 
-This document provides detailed technical information about the Healthcare AI Agent System implementation.
+This document provides detailed technical information about the Immigration AI Agent System implementation.
 
 ## Architecture Overview
 
@@ -13,14 +13,14 @@ The system currently supports multiple agent framework implementations:
 1. **CrewAI** (Primary Implementation)
    - Multi-agent system using `crewai`
    - Support for both OpenAI and Ollama LLMs
-   - Specialized agents for different healthcare tasks
+   - Specialized agents for different immigration tasks
 
 2. **LangFlow** (Alternative Implementation)
    - Visual workflow builder for AI applications
    - Drag-and-drop interface for creating agent workflows
 
 3. **Custom Agent Framework** (Future Implementation)
-   - Custom-built agent system for specific healthcare requirements
+   - Custom-built agent system for specific immigration requirements
 
 ## CrewAI Implementation Details
 
@@ -76,7 +76,7 @@ LOG_FILE="logs/crewai_llm.log"  # Path to log file, or empty for console only
 ## Project Structure
 
 ```
-healthcare-aigent/
+immigration-aigent/
 ├── config/                  # Configuration files
 ├── data/                    # Data files and samples
 ├── docs/                    # Documentation
@@ -195,7 +195,7 @@ uv sync --dev --upgrade
 ### API Endpoints
 - RESTful API for external integrations
 - WebSocket support for real-time communication
-- Standardized healthcare data formats (HL7 FHIR)
+- Standardized immigration data formats
 
 ## Monitoring and Observability
 

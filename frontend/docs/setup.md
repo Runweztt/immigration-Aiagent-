@@ -244,7 +244,7 @@ uv --version
 which python  # Should point to your virtual environment
 
 # Check installed packages
-pip list | grep healthcare-aigent
+pip list | grep immigration-aigent
 ```
 
 ## Python Version Details

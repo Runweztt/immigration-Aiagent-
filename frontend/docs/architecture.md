@@ -49,14 +49,14 @@ graph TD
 ## Class Diagram
 ```mermaid
 classDiagram
-    class HealthcareDatabase {
+    class ImmigrationDatabase {
         <<interface>>
         +read_patient_data(patient_id: str) Dict[str, Any]
         +update_patient_data(patient_id: str, data: Dict[str, Any]) bool
         +log_audit_event(event_type: str, patient_id: str, user_id: str) bool
     }
 
-    class MockHealthcareDatabase {
+    class MockImmigrationDatabase {
         -_patient_data: Dict
         -_audit_log: List
         +read_patient_data(patient_id: str) Dict[str, Any]
@@ -99,7 +99,7 @@ classDiagram
         +execute_task(task: Task) Result
     }
 
-    HealthcareDatabase <|.. MockHealthcareDatabase
+    ImmigrationDatabase <|.. MockImmigrationDatabase
     Agent <|-- PreprocessingAgent
     Agent <|-- LanguageAssessmentAgent
     Agent <|-- ClinicalExtractionAgent

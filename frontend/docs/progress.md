@@ -1,8 +1,8 @@
-# Healthcare Multi-Agent System - Development Progress
+# Immigration Multi-Agent System - Development Progress
 
 ## Project Description
 
-This project aims to develop a healthcare multi-agent system that can assist healthcare professionals in various tasks such as diagnosis, treatment planning, and patient monitoring. The system will use multiple AI agents, each specialized in a specific domain, working together to provide comprehensive healthcare assistance.
+This project aims to develop an immigration multi-agent system that can assist professionals in various tasks. The system will use multiple AI agents, each specialized in a specific domain, working together to provide comprehensive assistance.
 
 ### Key Features
 - **Patient-Centric Communication**: Real-time suggestions for adapting language based on patient characteristics
