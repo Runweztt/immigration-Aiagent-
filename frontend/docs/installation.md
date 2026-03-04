@@ -1,6 +1,6 @@
 # Installation Guide
 
-This guide explains how to install and set up the Healthcare AI Agent system for both users and developers.
+This guide explains how to install and set up the Immigration AI Agent system for both users and developers.
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ For users who want to quickly get started:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/pkuppens/healthcare-aigent.git
+git clone https://github.com/pkuppens/immigration-aigent.git
 cd healthcare-aigent
 ```
 
@@ -50,7 +50,7 @@ cp .env.example .env
 python src/main.py
 
 # Or use the entry point (after installation)
-healthcare-aigent
+immigration-aigent
 ```
 
 ## Development Installation
@@ -60,7 +60,7 @@ For developers who want to contribute or modify the code:
 ### 1. Clone and Setup
 
 ```bash
-git clone https://github.com/pkuppens/healthcare-aigent.git
+git clone https://github.com/pkuppens/immigration-aigent.git
 cd healthcare-aigent
 ```
 
@@ -184,7 +184,7 @@ src/
 After installation, you can run the application using the configured entry point:
 
 ```bash
-healthcare-aigent
+immigration-aigent
 ```
 
 ### Direct Python Execution
@@ -291,7 +291,7 @@ Make sure you're using the correct Python environment:
 python --version
 
 # Check if package is installed
-pip list | grep healthcare-aigent
+pip list | grep immigration-aigent
 
 # Verify UV installation
 uv --version

@@ -141,7 +141,7 @@ python_files = test_*.py
 ```python
 def test_database_read_patient_data():
     """Test reading patient data from database."""
-    db = MockHealthcareDatabase()
+    db = MockImmigrationDatabase()
     patient_data = db.read_patient_data("test_patient")
     assert patient_data is not None
     assert "history" in patient_data
