@@ -1,4 +1,4 @@
-# 🌍 Immigration AI Agent
+#  Immigration AI Agent
 
 An intelligent multi-agent immigration assistant powered by **CrewAI**, **Supabase**, and **FastAPI** — accessible via a premium **React web interface** and **Telegram**.
 
@@ -57,6 +57,3 @@ pytest tests/unit/ -v
 pytest tests/ --cov=src
 ```
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
