@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import RegistrationForm from './components/RegistrationForm';
 import SuccessPage from './components/SuccessPage';
+import Dashboard from './components/Dashboard';
 import Layout from './components/Layout';
 
 function App() {
@@ -12,13 +13,20 @@ function App() {
     setStep('success');
   };
 
+  const handleProceedToDashboard = () => {
+    setStep('dashboard');
+  };
+
   return (
-    <Layout>
+    <Layout isFullWidth={step === 'dashboard'}>
       {step === 'register' && (
         <RegistrationForm onSafeSuccess={handleRegistrationSuccess} />
       )}
       {step === 'success' && (
-        <SuccessPage userData={userData} />
+        <SuccessPage userData={userData} onProceed={handleProceedToDashboard} />
+      )}
+      {step === 'dashboard' && (
+        <Dashboard userData={userData} />
       )}
     </Layout>
   );

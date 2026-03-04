@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, isFullWidth }) => {
   return (
     <div className="min-h-screen vibrant-gradient flex flex-col items-center justify-center p-4">
       <header className="absolute top-0 w-full p-8 flex justify-between items-center">
@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
         </nav>
       </header>
       
-      <main className="w-full max-w-lg mt-12">
+      <main className={`w-full mt-12 ${isFullWidth ? 'max-w-4xl' : 'max-w-lg'}`}>
         {children}
       </main>
       
