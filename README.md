@@ -1,4 +1,4 @@
-# 🌍 Immigration AI Agent
+#  Immigration AI Agent
 
 An intelligent multi-agent immigration assistant powered by **CrewAI**, **Supabase**, and **FastAPI** — accessible via a premium **React web interface** and **Telegram**.
 
