@@ -53,28 +53,10 @@ npm run dev
 ### 4. Telegram Bot
 
 ```bash
-python -m backend.bot.telegram_bot
+pytest tests/unit/ -v
+pytest tests/ --cov=src
 ```
 
-## How It Works
+## License
 
-1. **Register** on the web app (name, email, country)
-2. **Get a link code** to optionally connect Telegram
-3. **Ask immigration questions** via web chat or Telegram
-4. The **CrewAI engine** runs 3 agents in sequence:
-   - 🔍 **Intake Agent** — extracts your situation details
-   - 📚 **Research Agent** — finds requirements, forms, fees
-   - ✍️ **Response Agent** — delivers a clear, actionable answer
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React, Vite, Tailwind CSS |
-| Backend | FastAPI, Python 3.12+ |
-| AI Engine | CrewAI, LangChain |
-| Auth & Database | Supabase |
-| LLM Providers | Claude (Anthropic), OpenAI, Ollama |
-| Telegram | python-telegram-bot |
-
-
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
