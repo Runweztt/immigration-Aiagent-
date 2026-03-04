@@ -26,7 +26,7 @@ const RegistrationForm = ({ onSafeSuccess }) => {
 
       if (response.ok) {
         const data = await response.json();
-        onSafeSuccess({ ...formData, link_code: data.link_code });
+        onSafeSuccess({ ...formData, link_code: data.link_code, access_token: data.access_token });
       } else {
         const err = await response.json();
         setError(err.detail || 'Registration failed');

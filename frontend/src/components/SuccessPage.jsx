@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SuccessPage = ({ userData }) => {
+const SuccessPage = ({ userData, onProceed }) => {
   const showTelegram = userData?.link_telegram;
 
   return (
@@ -47,7 +47,7 @@ const SuccessPage = ({ userData }) => {
       )}
 
       <div className="mt-12">
-        <button className="text-white/40 hover:text-white transition-all text-sm font-medium">
+        <button onClick={onProceed} className="text-white/40 hover:text-white transition-all text-sm font-medium">
           Proceed to Dashboard &rarr;
         </button>
       </div>
