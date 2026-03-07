@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const RegistrationForm = ({ onSafeSuccess }) => {
+const RegistrationForm = ({ onSafeSuccess, onSwitchToLogin }) => {
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
@@ -12,13 +12,17 @@ const RegistrationForm = ({ onSafeSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Use Vite proxy in dev (empty base = same origin, proxied to :8000)
+  // Override with VITE_API_BASE_URL for production deployments
+  const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/auth/register', {
+      const response = await fetch(`${API_BASE}/api/v1/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -26,7 +30,11 @@ const RegistrationForm = ({ onSafeSuccess }) => {
 
       if (response.ok) {
         const data = await response.json();
-        onSafeSuccess({ ...formData, link_code: data.link_code, access_token: data.access_token });
+        onSafeSuccess({
+          ...formData,
+          link_code: data.link_code,
+          access_token: data.access_token,
+        });
       } else {
         const err = await response.json();
         setError(err.detail || 'Registration failed');
@@ -104,6 +112,16 @@ const RegistrationForm = ({ onSafeSuccess }) => {
           {loading ? 'Processing...' : 'Register Now'}
         </button>
       </form>
+
+      <p className="text-center text-white/40 text-sm mt-6">
+        Already have an account?{' '}
+        <button
+          onClick={onSwitchToLogin}
+          className="text-premium-gold hover:underline font-medium"
+        >
+          Sign in
+        </button>
+      </p>
     </div>
   );
 };
