@@ -1,5 +1,5 @@
 {
-  "name": "Healthcare AI Agent",
+  "name": "Immigration AI Agent",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
   "features": {
     "ghcr.io/devcontainers/features/python:1": {

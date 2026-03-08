@@ -1,1 +1,1 @@
-"""Scripts package for healthcare-aigent project."""
+"""Scripts package for immigration-agent project."""
