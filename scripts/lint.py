@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Linting script for the healthcare-aigent project."""
+"""Linting script for the immigration-agent project."""
 
 import subprocess
 import sys
